@@ -1,0 +1,232 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="payfribi_surveyModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="encuestas">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="titulo" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="usuario_admin_id" Type="Int32" Nullable="false" />
+    <Property Name="fecha_creacion" Type="DateTime" Precision="7" />
+    <Property Name="fecha_limite" Type="DateTime" Precision="7" />
+    <Property Name="activa" Type="Boolean" />
+    <NavigationProperty Name="usuarios" Relationship="Self.FK_encuestas_usuario_admin" FromRole="encuestas" ToRole="usuarios" />
+    <NavigationProperty Name="preguntas" Relationship="Self.FK_preguntas_encuesta" FromRole="encuestas" ToRole="preguntas" />
+    <NavigationProperty Name="respuestas_encuesta" Relationship="Self.FK_respuestas_encuesta_encuesta" FromRole="encuestas" ToRole="respuestas_encuesta" />
+  </EntityType>
+  <EntityType Name="opciones_respuesta">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="pregunta_id" Type="Int32" Nullable="false" />
+    <Property Name="texto_opcion" Type="String" MaxLength="500" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="valor" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="orden" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="preguntas" Relationship="Self.FK_opciones_respuesta_pregunta" FromRole="opciones_respuesta" ToRole="preguntas" />
+    <NavigationProperty Name="respuestas_detalle" Relationship="Self.FK_respuestas_detalle_opcion" FromRole="opciones_respuesta" ToRole="respuestas_detalle" />
+  </EntityType>
+  <EntityType Name="preguntas">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="encuesta_id" Type="Int32" Nullable="false" />
+    <Property Name="texto_pregunta" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="tipo_pregunta" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="obligatoria" Type="Boolean" />
+    <Property Name="orden" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="encuestas" Relationship="Self.FK_preguntas_encuesta" FromRole="preguntas" ToRole="encuestas" />
+    <NavigationProperty Name="opciones_respuesta" Relationship="Self.FK_opciones_respuesta_pregunta" FromRole="preguntas" ToRole="opciones_respuesta" />
+    <NavigationProperty Name="respuestas_detalle" Relationship="Self.FK_respuestas_detalle_pregunta" FromRole="preguntas" ToRole="respuestas_detalle" />
+  </EntityType>
+  <EntityType Name="respuestas_detalle">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="respuesta_encuesta_id" Type="Int32" Nullable="false" />
+    <Property Name="pregunta_id" Type="Int32" Nullable="false" />
+    <Property Name="opcion_id" Type="Int32" />
+    <Property Name="texto_respuesta" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="fecha_respuesta" Type="DateTime" Precision="7" />
+    <NavigationProperty Name="opciones_respuesta" Relationship="Self.FK_respuestas_detalle_opcion" FromRole="respuestas_detalle" ToRole="opciones_respuesta" />
+    <NavigationProperty Name="preguntas" Relationship="Self.FK_respuestas_detalle_pregunta" FromRole="respuestas_detalle" ToRole="preguntas" />
+    <NavigationProperty Name="respuestas_encuesta" Relationship="Self.FK_respuestas_detalle_respuesta_encuesta" FromRole="respuestas_detalle" ToRole="respuestas_encuesta" />
+  </EntityType>
+  <EntityType Name="respuestas_encuesta">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="encuesta_id" Type="Int32" Nullable="false" />
+    <Property Name="usuario_asesor_id" Type="Int32" Nullable="false" />
+    <Property Name="fecha_inicio" Type="DateTime" Precision="7" />
+    <Property Name="fecha_completada" Type="DateTime" Precision="7" />
+    <Property Name="estado" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="encuestas" Relationship="Self.FK_respuestas_encuesta_encuesta" FromRole="respuestas_encuesta" ToRole="encuestas" />
+    <NavigationProperty Name="respuestas_detalle" Relationship="Self.FK_respuestas_detalle_respuesta_encuesta" FromRole="respuestas_encuesta" ToRole="respuestas_detalle" />
+    <NavigationProperty Name="usuarios" Relationship="Self.FK_respuestas_encuesta_usuario_asesor" FromRole="respuestas_encuesta" ToRole="usuarios" />
+  </EntityType>
+  <EntityType Name="usuarios">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="email" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="password" Type="String" MaxLength="255" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="tipo_usuario" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="fecha_creacion" Type="DateTime" Precision="7" />
+    <Property Name="activo" Type="Boolean" />
+    <NavigationProperty Name="encuestas" Relationship="Self.FK_encuestas_usuario_admin" FromRole="usuarios" ToRole="encuestas" />
+    <NavigationProperty Name="respuestas_encuesta" Relationship="Self.FK_respuestas_encuesta_usuario_asesor" FromRole="usuarios" ToRole="respuestas_encuesta" />
+  </EntityType>
+  <Association Name="FK_encuestas_usuario_admin">
+    <End Role="usuarios" Type="Self.usuarios" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="encuestas" Type="Self.encuestas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="usuarios">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="encuestas">
+        <PropertyRef Name="usuario_admin_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_preguntas_encuesta">
+    <End Role="encuestas" Type="Self.encuestas" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="preguntas" Type="Self.preguntas" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="encuestas">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="preguntas">
+        <PropertyRef Name="encuesta_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_respuestas_encuesta_encuesta">
+    <End Role="encuestas" Type="Self.encuestas" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="respuestas_encuesta" Type="Self.respuestas_encuesta" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="encuestas">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="respuestas_encuesta">
+        <PropertyRef Name="encuesta_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_opciones_respuesta_pregunta">
+    <End Role="preguntas" Type="Self.preguntas" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="opciones_respuesta" Type="Self.opciones_respuesta" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="preguntas">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="opciones_respuesta">
+        <PropertyRef Name="pregunta_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_respuestas_detalle_opcion">
+    <End Role="opciones_respuesta" Type="Self.opciones_respuesta" Multiplicity="0..1" />
+    <End Role="respuestas_detalle" Type="Self.respuestas_detalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="opciones_respuesta">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="respuestas_detalle">
+        <PropertyRef Name="opcion_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_respuestas_detalle_pregunta">
+    <End Role="preguntas" Type="Self.preguntas" Multiplicity="1" />
+    <End Role="respuestas_detalle" Type="Self.respuestas_detalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="preguntas">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="respuestas_detalle">
+        <PropertyRef Name="pregunta_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_respuestas_detalle_respuesta_encuesta">
+    <End Role="respuestas_encuesta" Type="Self.respuestas_encuesta" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="respuestas_detalle" Type="Self.respuestas_detalle" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="respuestas_encuesta">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="respuestas_detalle">
+        <PropertyRef Name="respuesta_encuesta_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_respuestas_encuesta_usuario_asesor">
+    <End Role="usuarios" Type="Self.usuarios" Multiplicity="1" />
+    <End Role="respuestas_encuesta" Type="Self.respuestas_encuesta" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="usuarios">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="respuestas_encuesta">
+        <PropertyRef Name="usuario_asesor_id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="payfribi_surveyEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="encuestas" EntityType="Self.encuestas" />
+    <EntitySet Name="opciones_respuesta" EntityType="Self.opciones_respuesta" />
+    <EntitySet Name="preguntas" EntityType="Self.preguntas" />
+    <EntitySet Name="respuestas_detalle" EntityType="Self.respuestas_detalle" />
+    <EntitySet Name="respuestas_encuesta" EntityType="Self.respuestas_encuesta" />
+    <EntitySet Name="usuarios" EntityType="Self.usuarios" />
+    <AssociationSet Name="FK_encuestas_usuario_admin" Association="Self.FK_encuestas_usuario_admin">
+      <End Role="usuarios" EntitySet="usuarios" />
+      <End Role="encuestas" EntitySet="encuestas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_preguntas_encuesta" Association="Self.FK_preguntas_encuesta">
+      <End Role="encuestas" EntitySet="encuestas" />
+      <End Role="preguntas" EntitySet="preguntas" />
+    </AssociationSet>
+    <AssociationSet Name="FK_respuestas_encuesta_encuesta" Association="Self.FK_respuestas_encuesta_encuesta">
+      <End Role="encuestas" EntitySet="encuestas" />
+      <End Role="respuestas_encuesta" EntitySet="respuestas_encuesta" />
+    </AssociationSet>
+    <AssociationSet Name="FK_opciones_respuesta_pregunta" Association="Self.FK_opciones_respuesta_pregunta">
+      <End Role="preguntas" EntitySet="preguntas" />
+      <End Role="opciones_respuesta" EntitySet="opciones_respuesta" />
+    </AssociationSet>
+    <AssociationSet Name="FK_respuestas_detalle_opcion" Association="Self.FK_respuestas_detalle_opcion">
+      <End Role="opciones_respuesta" EntitySet="opciones_respuesta" />
+      <End Role="respuestas_detalle" EntitySet="respuestas_detalle" />
+    </AssociationSet>
+    <AssociationSet Name="FK_respuestas_detalle_pregunta" Association="Self.FK_respuestas_detalle_pregunta">
+      <End Role="preguntas" EntitySet="preguntas" />
+      <End Role="respuestas_detalle" EntitySet="respuestas_detalle" />
+    </AssociationSet>
+    <AssociationSet Name="FK_respuestas_detalle_respuesta_encuesta" Association="Self.FK_respuestas_detalle_respuesta_encuesta">
+      <End Role="respuestas_encuesta" EntitySet="respuestas_encuesta" />
+      <End Role="respuestas_detalle" EntitySet="respuestas_detalle" />
+    </AssociationSet>
+    <AssociationSet Name="FK_respuestas_encuesta_usuario_asesor" Association="Self.FK_respuestas_encuesta_usuario_asesor">
+      <End Role="usuarios" EntitySet="usuarios" />
+      <End Role="respuestas_encuesta" EntitySet="respuestas_encuesta" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

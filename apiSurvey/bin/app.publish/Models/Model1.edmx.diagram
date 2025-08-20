@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="cb0107411aea42669a514326a6bb5029" Name="Diagram1">
+        <EntityTypeShape EntityType="payfribi_surveyModel.encuestas" Width="1.5" PointX="3" PointY="4.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="payfribi_surveyModel.opciones_respuesta" Width="1.5" PointX="7.5" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="payfribi_surveyModel.preguntas" Width="1.5" PointX="5.25" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="payfribi_surveyModel.respuestas_detalle" Width="1.5" PointX="9.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="payfribi_surveyModel.respuestas_encuesta" Width="1.5" PointX="5.25" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="payfribi_surveyModel.usuarios" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
+        <AssociationConnector Association="payfribi_surveyModel.FK_encuestas_usuario_admin" ManuallyRouted="false" />
+        <AssociationConnector Association="payfribi_surveyModel.FK_preguntas_encuesta" ManuallyRouted="false" />
+        <AssociationConnector Association="payfribi_surveyModel.FK_respuestas_encuesta_encuesta" ManuallyRouted="false" />
+        <AssociationConnector Association="payfribi_surveyModel.FK_opciones_respuesta_pregunta" ManuallyRouted="false" />
+        <AssociationConnector Association="payfribi_surveyModel.FK_respuestas_detalle_opcion" ManuallyRouted="false" />
+        <AssociationConnector Association="payfribi_surveyModel.FK_respuestas_detalle_pregunta" ManuallyRouted="false" />
+        <AssociationConnector Association="payfribi_surveyModel.FK_respuestas_detalle_respuesta_encuesta" ManuallyRouted="false" />
+        <AssociationConnector Association="payfribi_surveyModel.FK_respuestas_encuesta_usuario_asesor" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

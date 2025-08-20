@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="payfribi_surveyModelStoreContainer" CdmEntityContainer="payfribi_surveyEntities">
+    <EntitySetMapping Name="encuestas">
+      <EntityTypeMapping TypeName="payfribi_surveyModel.encuestas">
+        <MappingFragment StoreEntitySet="encuestas">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="titulo" ColumnName="titulo" />
+          <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+          <ScalarProperty Name="usuario_admin_id" ColumnName="usuario_admin_id" />
+          <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
+          <ScalarProperty Name="fecha_limite" ColumnName="fecha_limite" />
+          <ScalarProperty Name="activa" ColumnName="activa" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="opciones_respuesta">
+      <EntityTypeMapping TypeName="payfribi_surveyModel.opciones_respuesta">
+        <MappingFragment StoreEntitySet="opciones_respuesta">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="pregunta_id" ColumnName="pregunta_id" />
+          <ScalarProperty Name="texto_opcion" ColumnName="texto_opcion" />
+          <ScalarProperty Name="valor" ColumnName="valor" />
+          <ScalarProperty Name="orden" ColumnName="orden" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="preguntas">
+      <EntityTypeMapping TypeName="payfribi_surveyModel.preguntas">
+        <MappingFragment StoreEntitySet="preguntas">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="encuesta_id" ColumnName="encuesta_id" />
+          <ScalarProperty Name="texto_pregunta" ColumnName="texto_pregunta" />
+          <ScalarProperty Name="tipo_pregunta" ColumnName="tipo_pregunta" />
+          <ScalarProperty Name="obligatoria" ColumnName="obligatoria" />
+          <ScalarProperty Name="orden" ColumnName="orden" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="respuestas_detalle">
+      <EntityTypeMapping TypeName="payfribi_surveyModel.respuestas_detalle">
+        <MappingFragment StoreEntitySet="respuestas_detalle">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="respuesta_encuesta_id" ColumnName="respuesta_encuesta_id" />
+          <ScalarProperty Name="pregunta_id" ColumnName="pregunta_id" />
+          <ScalarProperty Name="opcion_id" ColumnName="opcion_id" />
+          <ScalarProperty Name="texto_respuesta" ColumnName="texto_respuesta" />
+          <ScalarProperty Name="fecha_respuesta" ColumnName="fecha_respuesta" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="respuestas_encuesta">
+      <EntityTypeMapping TypeName="payfribi_surveyModel.respuestas_encuesta">
+        <MappingFragment StoreEntitySet="respuestas_encuesta">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="encuesta_id" ColumnName="encuesta_id" />
+          <ScalarProperty Name="usuario_asesor_id" ColumnName="usuario_asesor_id" />
+          <ScalarProperty Name="fecha_inicio" ColumnName="fecha_inicio" />
+          <ScalarProperty Name="fecha_completada" ColumnName="fecha_completada" />
+          <ScalarProperty Name="estado" ColumnName="estado" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="usuarios">
+      <EntityTypeMapping TypeName="payfribi_surveyModel.usuarios">
+        <MappingFragment StoreEntitySet="usuarios">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="nombre" ColumnName="nombre" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="tipo_usuario" ColumnName="tipo_usuario" />
+          <ScalarProperty Name="fecha_creacion" ColumnName="fecha_creacion" />
+          <ScalarProperty Name="activo" ColumnName="activo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
