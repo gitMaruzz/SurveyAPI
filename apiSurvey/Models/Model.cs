@@ -191,6 +191,7 @@ namespace apiSurvey.Models
             public int UsuarioAsesorId { get; set; }
 
             // NUEVO CAMPO
+            [Required]
             [Column("sucursal_id")]
             public int? SucursalId { get; set; }
 

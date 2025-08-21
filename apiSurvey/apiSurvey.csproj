@@ -233,6 +233,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Logic\ConfigHelper.cs" />
     <Compile Include="Logic\DataAPI.cs" />
     <Compile Include="Logic\Helpers.cs" />
     <Compile Include="Logic\JwtDebugHelper.cs" />

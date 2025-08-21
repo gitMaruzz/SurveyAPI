@@ -12,13 +12,19 @@ namespace apiSurvey
     {
         public static void Register(HttpConfiguration config)
         {
+           
             // Configuración y servicios de API web
             // Habilitar CORS
             try
             {
+                // Validar configuración al inicio
+                Logic.ConfigHelper.ValidateConfiguration();
+
+                // Habilitar CORS con configuración desde Web.config
+                var corsOrigins = Logic.ConfigHelper.CorsOrigins;
                 // Habilitar CORS con configuración específica para React
                 var cors = new EnableCorsAttribute(
-                    origins: "http://localhost:5173,https://api.survey.payfri-bi.com", // En producción especifica tu dominio: "http://localhost:3000,https://mi-app.com"
+                    origins: corsOrigins, // En producción especifica tu dominio: "http://localhost:3000,https://mi-app.com"
                     headers: "*", // Permitir todos los headers
                     methods: "*", // Permitir todos los métodos HTTP
                     exposedHeaders: "Authorization" // Exponer header de autorización
@@ -50,10 +56,12 @@ namespace apiSurvey
                     ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
                     PreserveReferencesHandling = PreserveReferencesHandling.None
                 };
+                System.Diagnostics.Debug.WriteLine("WebAPI configurado exitosamente con configuración desde Web.config");
             }
             catch(Exception ex)
             {
-               
+                System.Diagnostics.Debug.WriteLine($"Error configurando WebAPI: {ex.Message}");
+                throw;
             }
             
         }
